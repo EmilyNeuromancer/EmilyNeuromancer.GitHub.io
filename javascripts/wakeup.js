@@ -58,13 +58,12 @@ function animate() {
   var current = slices.shift();
   set(current);
   slices.push(current);
-  //setTimeout(animate, rand(50, 250));
-  anim = requestAnimationFrame(animate);
+  setTimeout(animate, rand(50, 250));
 }
 
 animate();
 
 window.addEventListener('click', () => {
-    cancelAnimationFrame(anim);
+    //cancelAnimationFrame(anim);
     window.location.href = "rabbit.html";
 });
