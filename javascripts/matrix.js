@@ -27,6 +27,7 @@ function render() {
     //console.log('enter render');
     animFrame = requestAnimationFrame(render);
 
+    ctx.fontSize = 12;
     ctx.fillStyle = tailColor;
     for (let i = 0; i < chars.length; ++i) { // Tails
         ctx.fillText(chars[i], i * fontSize + 1, pos[i] * fontSize); 
@@ -47,6 +48,11 @@ function render() {
         }
         time[x] += spd[x];
     }
+
+
+    ctx.font = 'bold 30px sans-serif';
+    ctx.fillStyle = '#0F0';
+    ctx.fillText("Click to escape", window.innerHeight/2, window.innerHeight/2); 
 }
 
 //window.onload = function() {
@@ -62,14 +68,13 @@ function runMatrix() {
         init();
     };
 
+    window.onclick = () => {
+        cancelAnimationFrame(animFrame);
+        canvas_m.remove();
+        wakeUpText();
+    }
+
     init();
     render();
 
-    setTimeout(showText, 3000);
 };
-
-function showText() {
-    cancelAnimationFrame(animFrame);
-    canvas_m.remove();
-    wakeUpText();
-}
