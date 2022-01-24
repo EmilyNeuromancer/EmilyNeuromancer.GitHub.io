@@ -353,7 +353,7 @@ FX.gradient = (function () {
 	};
 })();
 
-
+var loopFrame;
 /*
  * FX.loop is our main loop
  */
@@ -368,9 +368,18 @@ FX.loop = function () {
 	//draw all available entities
 	FX.entity.drawAll();
 
+    setTimeout(FX.jumpToMatrix, 5000);
+
 	//request next loop
-	requestAnimFrame(FX.loop);
+	loopFrame = requestAnimFrame(FX.loop);
 };
+
+FX.jumpToMatrix = function () {
+    cancelAnimationFrame(loopFrame);
+    FX.canvas.remove();
+
+    drawMatrixScreen();
+}
 
 /*
  * Converts degrees to radients
