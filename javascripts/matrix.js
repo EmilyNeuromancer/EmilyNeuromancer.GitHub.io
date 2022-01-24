@@ -69,6 +69,11 @@ window.onload = function() {
         ctx.clearRect(0, 0, canvas_m.width, canvas_m.height);
         window.location.href = "wakeup.html";
     });
+    window.addEventListener('touchstart', () => {
+        cancelAnimationFrame(animFrame);
+        ctx.clearRect(0, 0, canvas_m.width, canvas_m.height);
+        window.location.href = "wakeup.html"; 
+    });
 
     init();
     render();

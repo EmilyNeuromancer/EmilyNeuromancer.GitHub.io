@@ -68,3 +68,9 @@ window.addEventListener('click', () => {
     //cancelAnimationFrame(anim);
     window.location.href = "rabbit.html";
 });
+
+window.addEventListener('touchstart', () => {
+    cancelAnimationFrame(animFrame);
+    ctx.clearRect(0, 0, canvas_m.width, canvas_m.height);
+    window.location.href = "wakeup.html"; 
+});
