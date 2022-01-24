@@ -1,6 +1,3 @@
- 
-
-
 // Parameters
 const fontSize = 12;
 const spdMult = 0.5;
@@ -114,9 +111,9 @@ if( Math.random() < 0.99 ) {
 var renderLines = function(){
     ctx.globalCompositeOperation = 'source-over';
     ctx.beginPath();
-    for(var i = 0; i < ch/2; i += 1){ 
+    for(var i = 0; i < canvas_m.height/2; i += 1){ 
         ctx.moveTo(0, (i*2) + .5);
-        ctx.lineTo(cw, (i*2) + .5); 
+        ctx.lineTo(canvas_m.width, (i*2) + .5); 
     }
     ctx.stroke();
     ctx.globalCompositeOperation = 'lighter';
@@ -124,7 +121,6 @@ var renderLines = function(){
 
 
 function wakeup() {
-    cancelAnimationFrame(animFrame);
 
     ctx.font = 'normal 20px monospace';
     ctx.textAlign = 'left';
@@ -157,6 +153,7 @@ function runMatrix() {
     init();
     };
     window.addEventListener('click', () => {
+        cancelAnimationFrame(animFrame);
         ctx.clearRect(0, 0, canvas_m.width, canvas_m.height);
         wakeup();
     });
