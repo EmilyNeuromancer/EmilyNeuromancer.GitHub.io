@@ -1,51 +1,75 @@
-canvas = document.createElement('canvas');
+// Parameters
+const fontSize = 12;
+const spdMult = 0.5;
+const fadeSpd = 0.03;
+const headColor = '#FFFFFF';
+const tailColor = '#00FF00';
 
-window.addEventListener('load', eventWindowLoaded, false);
+var SCREEN_WIDTH = window.innerWidth,
+SCREEN_HEIGHT = window.innerHeight;
 
-function eventWindowLoaded () {
-  canvasApp(); //包含整个Canvas应用程序
+canvas_m = document.createElement('canvas');
+ctx = canvas_m.getContext('2d');
+
+pos = []; spd = []; time = []; chars = [];
+
+function init() {
+    ctx.font = fontSize + 'pt Consolas';
+    for (let i = 0; i < canvas_m.width / fontSize; i++) {
+        pos[i] = Math.random() * (canvas_m.height / fontSize);
+        spd[i] = (Math.random() + 0.2) * spdMult;
+        time[i] = 0; 
+        chars[i] = ' ';
+    }
 }
-function canvasSupport (e) {
-  
-	  return !!e.getContext;
 
+function render() {
+    //console.log('enter render');
+    animFrame = requestAnimationFrame(render);
+
+    ctx.fillStyle = tailColor;
+    for (let i = 0; i < chars.length; ++i) { // Tails
+        ctx.fillText(chars[i], i * fontSize + 1, pos[i] * fontSize); 
+    }
+    ctx.fillStyle = `rgba(0, 0, 0, ${fadeSpd})`;
+    ctx.fillRect(0, 0, canvas_m.width, canvas_m.height); // Fading
+
+    ctx.fillStyle = headColor;
+    for (let x = 0; x < pos.length; ++x){ // Chars
+        if (time[x] > 1) {
+            let charCode = (Math.random() < 0.9) ? Math.random() * 93 + 33
+                : Math.random() * 15 + 12688;
+            chars[x] = String.fromCharCode(charCode);
+            ctx.fillText(chars[x], x * fontSize + 1, pos[x] * fontSize + fontSize);
+            pos[x]++;
+            if (pos[x] * fontSize > canvas_m.height) pos[x] = 0;
+            time[x] = 0;
+        }
+        time[x] += spd[x];
+    }
 }
-function canvasApp () {
-    document.body.appendChild(canvas);
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
 
-  if (!canvasSupport(canvas)) {
-	  return; 
-	}
-  
-  var ctx = canvas.getContext('2d');
-  var w = canvas.width = window.innerWidth;
-	var h = canvas.height = window.innerHeight;
-	var yPositions = Array(300).join(0).split('');
-  
-  function runMatrix() {
-	  if (typeof Game_Interval != 'undefined') clearInterval(Game_interval);
-		Game_Interval = setInterval(drawMatrixScreen, 33);
-	}
+//window.onload = function() {
+function runMatrix() {
+    document.body.appendChild(canvas_m);
+    canvas_m.width = SCREEN_WIDTH;
+    canvas_m.height = SCREEN_HEIGHT;
 
-  function drawMatrixScreen () {
-    ctx.fillStyle = 'rgba(0,0,0,.05)';
-		ctx.fillRect(0, 0, w, h);
-		ctx.fillStyle = '#0f0';
-		ctx.font = '10px Georgia';
-		yPositions.map(function(y, index){
-		  text = String.fromCharCode(1e2 + Math.random() * 33);
-			x = (index * 10) + 10;
-			ctx.fillText(text, x, y);
-			if (y > 100 + Math.random() * 1e4) {
-			  yPositions[index] = 0;
-			} else {
-			  yPositions[index] = y + 10;
-			}
-		})
-  }
-  
-  runMatrix();
- 
+    window.onresize = () => {
+    canvas_m.width = window.innerWidth;
+    canvas_m.height = window.innerHeight;
+    ctx.clearRect(0, 0, canvas_m.width, canvas_m.height);
+        init();
+    };
+
+    init();
+    render();
+
+    setTimeout(showText, 3000);
+};
+
+function showText() {
+    cancelAnimationFrame(animFrame);
+    canvas_m.remove();
+    wakeUpText();
 }

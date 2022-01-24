@@ -368,17 +368,18 @@ FX.loop = function () {
 	//draw all available entities
 	FX.entity.drawAll();
 
-    setTimeout(FX.jumpToMatrix, 5000);
-
 	//request next loop
 	loopFrame = requestAnimFrame(FX.loop);
+
+
+    setTimeout(FX.jumpToMatrix, 5000);
 };
 
 FX.jumpToMatrix = function () {
     cancelAnimationFrame(loopFrame);
     FX.canvas.remove();
 
-    drawMatrixScreen();
+    runMatrix();
 }
 
 /*
