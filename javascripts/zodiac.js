@@ -26,6 +26,7 @@ function addZodiacName(g, name, x, y) {
     .attr('x', x)
     .attr('y', y)
     .attr('transform', rotation)
+
 }
 function distance(x,y) {
   return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
@@ -100,8 +101,19 @@ d3.json("https://gist.githubusercontent.com/djdmsr/e7179cd81961200ee5c39c2c8c3e1
       addZodiacName(g, name, x, y)
   })
 
+  d3.selectAll('text')
+  .filter(function() {
+      return d3.select(this).text() == "Aquarius"
+  })
+  .style("fill", "#f2f237")
+  .style("font", "14px sans-serif")
+  .on("clik", () => {
+      d3.select('.container').remove();
+
+      //runStarfield();
+  });
+
   var frames = 0
-  var fps = 0
 
   function animate(){
     window.requestAnimationFrame(animate)
