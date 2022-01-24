@@ -379,7 +379,7 @@ FX.jumpToMatrix = function () {
     cancelAnimationFrame(loopFrame);
     FX.canvas.remove();
 
-    runMatrix();
+    window.location.href = "matrix.html";
 }
 
 /*
