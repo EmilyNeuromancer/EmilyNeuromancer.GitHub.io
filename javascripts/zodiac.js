@@ -107,10 +107,11 @@ d3.json("https://gist.githubusercontent.com/djdmsr/e7179cd81961200ee5c39c2c8c3e1
   })
   .style("fill", "#f2f237")
   .style("font", "14px sans-serif")
-  .on("clik", () => {
-      d3.select('.container').remove();
+  .on("click", () => {
 
-      //runStarfield();
+    document.body.style["background-image"] = 'none';
+      d3.select('.container').remove();
+      FX.loop();
   });
 
   var frames = 0
