@@ -32,7 +32,7 @@ function assemble(statements) {
     slices = slices.concat(sliced);
     
     // Pause on the completed statement
-    slices = slices.concat(pause(stmt, 30));
+    slices = slices.concat(pause(stmt, 10));
     
     // Backspace it away
     // slices = slices.concat(sliced.reverse());
@@ -42,10 +42,11 @@ function assemble(statements) {
 }
 
 var statements = [
-  "Wake up, Neo...",
+  "Wake up, LL...",
   "The Matrix has you...",
   "Follow the white rabbit.",
-  "Knock, knock, Neo."
+  "Knock, knock, LL...",
+  "Click to escape",
 ]
 
 function rand(min, max) {

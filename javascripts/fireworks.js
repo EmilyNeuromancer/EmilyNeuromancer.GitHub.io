@@ -22,28 +22,14 @@ $(document).ready(function() {
 	setInterval(loop, 1000 / 50);
 });
 
-// update mouse position
-$(document).mousemove(function(e) {
-	e.preventDefault();
-	mousePos = {
-		x: e.clientX,
-		y: e.clientY
-	};
-});
-
-// launch more rockets!!!
-$(document).mousedown(function(e) {
-	for (var i = 0; i < 5; i++) {
-		launchFrom(Math.random() * SCREEN_WIDTH * 2 / 3 + SCREEN_WIDTH / 6);
-	}
-});
 
 function launch() {
+
 	launchFrom(Math.random() * SCREEN_WIDTH * 2 / 3 + SCREEN_WIDTH / 6);
 }
 
 function launchFrom(x) {
-	if (rockets.length < 10) {
+	if (rockets.length < 16) {
 		var rocket = new Rocket(x);
 		rocket.explosionColor = Math.floor(Math.random() * 360 / 10) * 10;
 		rocket.vel.y = Math.random() * -3 - 4;
@@ -63,6 +49,15 @@ function loop() {
 	if (SCREEN_HEIGHT != window.innerHeight) {
 		canvas.height = SCREEN_HEIGHT = window.innerHeight;
 	}
+
+
+	context.font = "italic 80px Neonderthaw";
+	var grad = context.createLinearGradient(0, 0, canvas.width, canvas.height/4);
+	grad.addColorStop("0", "#FF4000");
+	grad.addColorStop("0.5", "#E09B5B");
+	grad.addColorStop("1", "#E0A0A0");
+	context.fillStyle = grad;
+	context.fillText("LL~ Happy Birthday~!", SCREEN_WIDTH/5, SCREEN_HEIGHT/5);
 
 	// clear canvas
 	context.fillStyle = "rgba(0, 0, 0, 0.05)";
